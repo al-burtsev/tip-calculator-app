@@ -4,10 +4,11 @@ import TipButton from '../TipButton/TipButton';
 
 interface TipSelectorProps {
   selectedTip: number;
+  onKeyDown: (event: React.KeyboardEvent) => void;
   onTipChange: (value: number | string) => void;
 }
 
-const TipSelector = ({ selectedTip, onTipChange }: TipSelectorProps) => {
+const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) => {
   return (
     <div className='text-black'>
       <label htmlFor='custom-tip'
@@ -28,8 +29,12 @@ const TipSelector = ({ selectedTip, onTipChange }: TipSelectorProps) => {
         <input
           id='custom-tip'
           type="number"
+          min='0'
+          max='500'
           placeholder="Custom"
+          value={selectedTip === 0 ? '' : selectedTip}
           onChange={(e) => onTipChange(e.target.value)}
+          onKeyDown={onKeyDown}
           className='bg-neutral-200' />
       </div>
     </div>
