@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  /* background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme {
+  --font-main: "Space Mono", sans-serif;
+  --color-primary: hsl(172, 67%, 45%);
+  --color-neutral-900: hsl(183, 100%, 15%);
+  --color-neutral-500: hsl(186, 14%, 43%);
+  --color-neutral-400: hsl(184, 14%, 56%);
+  --color-neutral-200: hsl(185, 41%, 84%);
+  --color-neutral-50: hsl(189, 47%, 97%);
+}
