@@ -1,6 +1,6 @@
 import TIP_VALUES from '../../../../constants/tips'
 import TipButton from '../TipButton/TipButton';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 interface TipSelectorProps {
   selectedTip: string;
@@ -9,17 +9,26 @@ interface TipSelectorProps {
 }
 
 const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) => {
+  const [isFocused, setIsFocused] = useState(false);
   const selectedTipNum = Number(selectedTip)
-
-  const isButtonActive = TIP_VALUES.some(val => String(val) === selectedTip);
 
   const handleBtnClick = useCallback((val: number) => {
     onTipChange(val)
+    setIsFocused(false)
   }, [onTipChange])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    onTipChange(Number(val));
+    onTipChange(val);
+  }
+
+  const handleInputFocus = () => {
+    setIsFocused(true)
+  }
+
+  const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    console.log(e.currentTarget)
+    e.currentTarget.select()
   }
 
   return (
@@ -34,7 +43,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           <TipButton
             key={tip}
             value={tip}
-            isActive={selectedTipNum === tip}
+            isActive={selectedTipNum === tip && !isFocused}
             onClick={handleBtnClick}
           />
         ))}
@@ -45,9 +54,12 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           min='0'
           max='500'
           placeholder="Custom"
-          value={isButtonActive ? '' : selectedTip}
+          onFocus={handleInputFocus}
+          onBlur={() => setIsFocused(false)}
+          onClick={handleInputClick}
           onChange={handleInputChange}
           onKeyDown={onKeyDown}
+          value={!isFocused && TIP_VALUES.includes(selectedTipNum) ? '' : selectedTip}
           className='bg-neutral-200 text-neutral-900 text-right font-bold text-2xl rounded-sm pe-4 hocus:outline-primary hocus:outline-2' />
       </div>
     </div>
