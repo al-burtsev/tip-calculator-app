@@ -19,7 +19,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
   return (
     <div className='text-neutral-500 font-main grid md:relative'>
       <label htmlFor={id}
-        className='mb-1 font-bold'
+        className='mb-1 font-bold justify-self-start'
       >
         {label}
       </label>
@@ -34,7 +34,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
         onClick={handleInputClick}
         onChange={onChange}
         onKeyDown={onKeyDown}
-        className={`bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 pe-4 w-full hocus:outline-2 selection:bg-primary ${error ? 'hocus:outline-attention' : 'hocus:outline-primary '}`} />
+        className={`bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 pe-4 w-full hocus:outline-2 selection:bg-primary ${error ? 'outline-attention outline-2 hocus:outline-attention' : 'hocus:outline-primary '}`} />
     </div>
   )
 }
