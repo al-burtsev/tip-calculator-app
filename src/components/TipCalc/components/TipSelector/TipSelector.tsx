@@ -27,7 +27,6 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
   }
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget)
     e.currentTarget.select()
   }
 
