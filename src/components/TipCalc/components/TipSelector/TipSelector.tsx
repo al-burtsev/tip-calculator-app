@@ -3,19 +3,23 @@ import TipButton from '../TipButton/TipButton';
 import { memo, useCallback } from 'react';
 
 interface TipSelectorProps {
-  selectedTip: number;
+  selectedTip: string;
   onKeyDown: (event: React.KeyboardEvent) => void;
   onTipChange: (value: number | string) => void;
 }
 
 const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) => {
+  const selectedTipNum = Number(selectedTip)
+
+  const isButtonActive = TIP_VALUES.some(val => String(val) === selectedTip);
+
   const handleBtnClick = useCallback((val: number) => {
     onTipChange(val)
   }, [onTipChange])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    onTipChange(val === '' ? 0 : Number(val));
+    onTipChange(Number(val));
   }
 
   return (
@@ -30,7 +34,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           <TipButton
             key={tip}
             value={tip}
-            isActive={selectedTip === tip}
+            isActive={selectedTipNum === tip}
             onClick={handleBtnClick}
           />
         ))}
@@ -41,7 +45,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           min='0'
           max='500'
           placeholder="Custom"
-          value={ TIP_VALUES.includes(selectedTip) ? '' : selectedTip }
+          value={isButtonActive ? '' : selectedTip}
           onChange={handleInputChange}
           onKeyDown={onKeyDown}
           className='bg-neutral-200 text-neutral-900 text-right font-bold text-2xl rounded-sm pe-4 hocus:outline-primary hocus:outline-2' />

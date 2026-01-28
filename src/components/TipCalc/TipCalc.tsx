@@ -6,7 +6,7 @@ import { calcTips, calcPersonTotalSum } from '@utils'
 
 const TipCalc = () => {
   const [bill, setBill] = useState<string>('')
-  const [tipPercent, setTipPercent] = useState<number>(0);
+  const [tipPercent, setTipPercent] = useState<string>('');
   const [people, setPeople] = useState<string>('')
 
   const handleBillChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,13 @@ const TipCalc = () => {
       return
     }
 
-    setTipPercent(Number(value))
+    if (typeof value === 'number') {
+      setTipPercent(String(value));
+      return;
+    }
+
+    setTipPercent(value);
+
   }, [])
 
   const preventInvalidChars = useCallback((e: React.KeyboardEvent) => {
@@ -45,15 +51,16 @@ const TipCalc = () => {
 
   const handleReset = useCallback(() => {
     setBill('')
-    setTipPercent(0)
+    setTipPercent('')
     setPeople('')
   }, [])
 
   const billNum = Number(bill)
+  const tipNum = Number(tipPercent)
   const peopleNum = Number(people)
 
-  const tipAmount = useMemo(() => calcTips(billNum, tipPercent, peopleNum), [billNum, tipPercent, peopleNum])
-  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipPercent, peopleNum), [billNum, tipPercent, peopleNum])
+  const tipAmount = useMemo(() => calcTips(billNum, tipNum, peopleNum), [billNum, tipPercent, peopleNum])
+  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipNum, peopleNum), [billNum, tipPercent, peopleNum])
 
   const hasData = (billNum > 0 && peopleNum > 0)
   const isPeopleZero = people !== '' && Number(people) === 0
