@@ -10,13 +10,13 @@ interface TipSelectorProps {
 
 const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) => {
   return (
-    <div className='text-black'>
+    <div className='text-neutral-500 grid'>
       <label htmlFor='custom-tip'
-        className=''
+        className='mb-3 font-bold'
       >
         Select Tip %
       </label>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-3">
         {predefinedTips.map(tip => (
           <TipButton
             key={tip}
@@ -32,10 +32,10 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           min='0'
           max='500'
           placeholder="Custom"
-          value={selectedTip === 0 ? '' : selectedTip}
+          // value={selectedTip === 0 ? '' : selectedTip}
           onChange={(e) => onTipChange(e.target.value)}
           onKeyDown={onKeyDown}
-          className='bg-neutral-200' />
+          className='bg-neutral-200 text-neutral-900 text-right font-bold text-2xl rounded-sm pe-4 hocus:outline-primary hocus:outline-2' />
       </div>
     </div>
   );

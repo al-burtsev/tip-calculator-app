@@ -5,10 +5,10 @@ interface TipButtonProps {
 }
 
 const TipButton = ({ value, isActive, onClick }: TipButtonProps) => {
-  const baseStyle = 'p-4 rounded-md text-white font-bold cursor-pointer transition-colors';
+  const baseStyle = 'p-2 rounded-md text-2xl font-bold cursor-pointer transition-colors duration-300 ease-out';
   const activeStyle = isActive
     ? 'bg-primary text-neutral-900'
-    : 'bg-neutral-900 hover:bg-neutral-500';
+    : 'bg-neutral-900 text-white hover:bg-neutral-500';
 
   return (
     <button

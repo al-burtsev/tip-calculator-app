@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import TipCalcField from './components/TipCalcField/TipCalcField'
 import TipSelector from './components/TipSelector/TipSelector'
+import TipReset from './components/TipReset/TipReset'
 import { calcTips, calcPersonTotalSum } from '@utils'
 
 const TipCalc = () => {
   const [bill, setBill] = useState<string>('')
   const [tipPercent, setTipPercent] = useState<number>(0);
   const [people, setPeople] = useState<string>('')
-  
+
   const handleBillChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
@@ -61,37 +62,48 @@ const TipCalc = () => {
 
   return (
     <section>
-      <form className='font-main p-6'>
-        <TipCalcField
-          id='bill'
-          label="Bill"
-          inputVal={bill}
-          onKeyDown={preventInvalidChars}
-          onChange={handleBillChange}
-        />
-        <TipSelector
-          selectedTip={tipPercent}
-          onKeyDown={preventInvalidChars}
-          onTipChange={handleTipChange}
-        />
-        <TipCalcField
-          id='number-of-people'
-          label="Number of people"
-          inputVal={people}
-          onKeyDown={preventInvalidChars}
-          onChange={handlePeopleChange}
-        />
+      <form className='container font-main bg-white py-8 rounded-t-3xl grid gap-8 selection:bg-primary selection:text-neutral-50'>
+        <div className='grid gap-8 px-2'>
+          <TipCalcField
+            id='bill'
+            label="Bill"
+            inputVal={bill}
+            onKeyDown={preventInvalidChars}
+            onChange={handleBillChange}
+          />
+          <TipSelector
+            selectedTip={tipPercent}
+            onKeyDown={preventInvalidChars}
+            onTipChange={handleTipChange}
+          />
+          <TipCalcField
+            id='number-of-people'
+            label="Number of people"
+            inputVal={people}
+            onKeyDown={preventInvalidChars}
+            onChange={handlePeopleChange}
+          />
 
-        <div className='bg-neutral-900 p-4 rounded-xl grid gap-8'>
-          <div>Tip Amount / person <span>{ displayTip }</span></div>
-          <div>Total / person <span>{ displayTotal }</span></div>
-          <button
-            type='button'
+        </div>
+        <div className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl grid gap-7'>
+          <div className='flex justify-between items-center'>
+            <div className='text-white font-bold'>
+              Tip Amount
+              <div className='text-neutral-400 text-xs'> / person</div>
+            </div>
+            <div className='leading-none text-3xl text-primary font-bold'>{displayTip}</div>
+          </div>
+          <div className='flex justify-between items-center'>
+            <div className='text-white font-bold'>
+              Total
+              <div className='text-neutral-400 text-xs'>/ person</div>
+            </div>
+            <div className='leading-none text-3xl text-primary font-bold'>{displayTotal}</div>
+          </div>
+          <TipReset
+            isActive={hasData}
             onClick={handleReset}
-            className='bg-primary rounded-sm uppercase text-neutral-900 text-2xl font-bold w-full px-2 py-2 cursor-pointer'
-          >
-            reset
-          </button>
+          />
         </div>
       </form>
     </section>
