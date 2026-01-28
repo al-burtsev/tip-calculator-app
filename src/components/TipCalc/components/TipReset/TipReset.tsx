@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface ResetProps {
   isActive: boolean;
   onClick: () => void
@@ -19,4 +21,4 @@ const TipReset = ({ isActive, onClick }: ResetProps) => {
   )
 }
 
-export default TipReset
+export default memo(TipReset)

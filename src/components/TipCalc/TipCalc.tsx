@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState, useMemo } from 'react'
 import TipCalcField from './components/TipCalcField/TipCalcField'
 import TipSelector from './components/TipSelector/TipSelector'
 import TipReset from './components/TipReset/TipReset'
@@ -9,7 +9,7 @@ const TipCalc = () => {
   const [tipPercent, setTipPercent] = useState<number>(0);
   const [people, setPeople] = useState<string>('')
 
-  const handleBillChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBillChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
     if (Number(value) < 0) {
@@ -17,9 +17,9 @@ const TipCalc = () => {
     }
 
     setBill(value)
-  }
+  }, [])
 
-  const handlePeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePeopleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
     if (Number(value) < 0) {
@@ -27,35 +27,36 @@ const TipCalc = () => {
     }
 
     setPeople(value);
-  }
+  }, [])
 
-  const handleTipChange = (value: number | string) => {
+  const handleTipChange = useCallback((value: number | string) => {
     if (Number(value) < 0) {
       return
     }
 
     setTipPercent(Number(value))
-  }
+  }, [])
 
-  const preventInvalidChars = (e: React.KeyboardEvent) => {
+  const preventInvalidChars = useCallback((e: React.KeyboardEvent) => {
     if (['-', '+', 'e', 'E'].includes(e.key)) {
       e.preventDefault();
     }
-  };
+  }, [])
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setBill('')
     setTipPercent(0)
     setPeople('')
-  };
+  }, [])
 
   const billNum = Number(bill)
   const peopleNum = Number(people)
 
-  const tipAmount = calcTips(billNum, tipPercent, peopleNum)
-  const totalPerPerson = calcPersonTotalSum(billNum, tipPercent, peopleNum)
+  const tipAmount = useMemo(() => calcTips(billNum, tipPercent, peopleNum), [billNum, tipPercent, peopleNum])
+  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipPercent, peopleNum), [billNum, tipPercent, peopleNum])
 
   const hasData = (billNum > 0 && peopleNum > 0)
+  const isPeopleZero = people !== '' && Number(people) === 0
 
   const displayTip = hasData ? tipAmount : '0.00'
   const displayTotal = hasData ? totalPerPerson : '0.00'
@@ -80,6 +81,7 @@ const TipCalc = () => {
             id='number-of-people'
             label="Number of people"
             inputVal={people}
+            error={isPeopleZero ? "Can't be zero" : ""}
             onKeyDown={preventInvalidChars}
             onChange={handlePeopleChange}
           />

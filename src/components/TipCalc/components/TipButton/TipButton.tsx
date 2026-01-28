@@ -1,7 +1,8 @@
+import { memo } from 'react';
 interface TipButtonProps {
   value: number;
   isActive: boolean;
-  onClick: () => void;
+  onClick: (val: number) => void;
 }
 
 const TipButton = ({ value, isActive, onClick }: TipButtonProps) => {
@@ -13,10 +14,10 @@ const TipButton = ({ value, isActive, onClick }: TipButtonProps) => {
   return (
     <button
       type='button'
-      className={`${baseStyle} ${activeStyle}`} onClick={onClick}>
+      className={`${baseStyle} ${activeStyle}`} onClick={() => onClick(value)}>
       {value}%
     </button>
   );
 };
 
-export default TipButton;
+export default memo(TipButton)
