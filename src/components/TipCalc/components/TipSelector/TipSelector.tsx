@@ -1,6 +1,6 @@
 import TIP_VALUES from '../../../../constants/tips'
 import TipButton from '../TipButton/TipButton';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 interface TipSelectorProps {
   selectedTip: string;
@@ -9,7 +9,8 @@ interface TipSelectorProps {
 }
 
 const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
   const selectedTipNum = Number(selectedTip)
 
   const handleBtnClick = useCallback((val: number) => {
@@ -18,17 +19,24 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
   }, [onTipChange])
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
+    const val = e.target.value
     onTipChange(val)
   }, [onTipChange])
 
-  const handleInputFocus = () => {
+  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.currentTarget.select()
     setIsFocused(true)
   }
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
   }
+
+  useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current.select()
+    }
+  }, [isFocused])
 
   return (
     <div className='text-neutral-500 grid'>
@@ -49,6 +57,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
 
         <input
           id='custom-tip'
+          ref={inputRef}
           type="number"
           min='0'
           max='500'
