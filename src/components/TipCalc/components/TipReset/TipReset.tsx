@@ -7,7 +7,7 @@ interface ResetProps {
 
 const TipReset = ({ isActive, onClick }: ResetProps) => {
 
-  const baseStyles = 'rounded-sm uppercase text-xl font-bold w-full mt-2.5 px-2 py-2 cursor-pointer select-none transition-colors duration-300 ease-in'
+  const baseStyles = 'rounded-sm uppercase text-xl font-bold w-full mt-2.5 px-2 py-2 md:mt-0 md:py-3 md:self-end cursor-pointer select-none transition-colors duration-300 ease-in'
   const activeStyles = isActive ? 'bg-primary text-neutral-900 hocus:bg-primary-100' : 'bg-primary/20 text-neutral-900/40 pointer-events-none'
   
   return (

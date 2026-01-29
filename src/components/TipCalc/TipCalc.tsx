@@ -2,6 +2,7 @@ import { useCallback, useState, useMemo } from 'react'
 import TipCalcField from './components/TipCalcField/TipCalcField'
 import TipSelector from './components/TipSelector/TipSelector'
 import TipReset from './components/TipReset/TipReset'
+import IconDollar  from '../ui/Icons/IconDollar'
 import { calcTips, calcPersonTotalSum } from '@utils'
 
 const TipCalc = () => {
@@ -70,11 +71,13 @@ const TipCalc = () => {
 
   return (
     <section>
-      <form className='container font-main bg-white py-8 rounded-t-3xl grid gap-8 selection:bg-primary selection:text-neutral-50'>
-        <div className='grid gap-8 px-2'>
+      <form className='container font-main bg-white py-8 rounded-t-3xl grid gap-8 md:grid-cols-2 md:rounded-3xl
+       selection:bg-primary selection:text-neutral-50'>
+        <div className='grid gap-8 px-2 md:px-4 md:py-3 md:gap-10'>
           <TipCalcField
             id='bill'
             label="Bill"
+            icon="/icon-dollar.svg"
             inputVal={bill}
             onKeyDown={preventInvalidChars}
             onChange={handleBillChange}
@@ -87,6 +90,7 @@ const TipCalc = () => {
           <TipCalcField
             id='number-of-people'
             label="Number of people"
+            icon="/icon-person.svg"
             inputVal={people}
             error={isPeopleZero ? "Can't be zero" : ""}
             onKeyDown={preventInvalidChars}
@@ -94,20 +98,24 @@ const TipCalc = () => {
           />
 
         </div>
-        <div className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl grid gap-7'>
-          <div className='flex justify-between items-center'>
+        <div className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl grid gap-7 md:px-10 md:py-9 md:gap-0'>
+          <div className='flex justify-between items-center md:items-start md:translate-y-4'>
             <div className='text-white font-bold'>
               Tip Amount
               <div className='text-neutral-400 text-xs'> / person</div>
             </div>
-            <div className='leading-none text-3xl text-primary font-bold'>{displayTip}</div>
+            <div className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
+              <IconDollar className="text-primary w-4 h-6 md:w-6 md:h-8" />
+              {displayTip}</div>
           </div>
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center md:items-start'>
             <div className='text-white font-bold'>
               Total
               <div className='text-neutral-400 text-xs'>/ person</div>
             </div>
-            <div className='leading-none text-3xl text-primary font-bold'>{displayTotal}</div>
+            <div className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
+              <IconDollar className="text-primary w-4 h-6 md:w-6 md:h-8" />
+              {displayTotal}</div>
           </div>
           <TipReset
             isActive={hasData}
