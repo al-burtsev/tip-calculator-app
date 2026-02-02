@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 
 interface TipCalcFieldProps {
   id: string;
@@ -14,16 +14,16 @@ interface TipCalcFieldProps {
 const TipCalcField = (props: TipCalcFieldProps) => {
   const { id, label, inputVal, isError, error, icon, onChange, onKeyDown } = props
 
-  const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
+  const handleInputClick = useCallback((e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
-  }
+  }, [])
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.currentTarget.blur()
     }
     onKeyDown(e)
-  }
+  }, [onKeyDown])
 
   return (
     <div className='text-neutral-500 font-main grid md:relative'>
@@ -43,6 +43,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
       />
         <input
           id={id}
+          name={id}
           type="number"
           inputMode="decimal"
           min='0'

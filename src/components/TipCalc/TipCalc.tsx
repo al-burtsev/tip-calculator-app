@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo, useRef } from 'react'
+import { useCallback, useState, useMemo, useRef, useEffect } from 'react'
 import TipCalcField from './components/TipCalcField/TipCalcField'
 import TipSelector from './components/TipSelector/TipSelector'
 import TipReset from './components/TipReset/TipReset'
@@ -9,7 +9,7 @@ const TipCalc = () => {
   const [bill, setBill] = useState<string>('')
   const [tipPercent, setTipPercent] = useState<string>('');
   const [people, setPeople] = useState<string>('')
-
+  const [scrollTrigger, setScrollTrigger] = useState(0)
   const resultsRef = useRef<HTMLDivElement>(null)
 
   const billNum = Number(bill)
@@ -20,6 +20,7 @@ const TipCalc = () => {
   const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
 
   const hasData = (billNum > 0 || peopleNum > 0 || tipNum > 0)
+  const canScroll = billNum > 0 && tipNum > 0 && peopleNum > 0
   const isPeopleZero = people !== '' && peopleNum === 0
 
   const displayTip = hasData ? tipAmount : '0.00'
@@ -61,30 +62,35 @@ const TipCalc = () => {
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (['-', '+', 'e', 'E'].includes(e.key)) {
-      e.preventDefault();
+      e.preventDefault()
       return
     }
 
-    if (e.key === 'Enter') {
-      const canScroll = billNum > 0 && tipNum > 0 && peopleNum > 0
-
-      if (canScroll) {
-        setTimeout(() => {
-          resultsRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest'
-          });
-        }, 350)
-      }
+    if (e.key === 'Enter' && e.currentTarget.name === 'number-of-people') {
+      setScrollTrigger(prev => prev + 1)
     }
-  }, [billNum, tipNum, peopleNum])
-
+  }, [])
 
   const handleReset = useCallback(() => {
     setBill('')
     setTipPercent('')
     setPeople('')
   }, [])
+
+  useEffect(() => {
+    if (scrollTrigger === 0) return
+
+    if (canScroll) {
+      const timer = setTimeout(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        });
+      }, 350);
+
+      return () => clearTimeout(timer)
+    }
+  }, [scrollTrigger, canScroll])
 
   return (
     <section>
