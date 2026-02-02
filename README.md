@@ -33,7 +33,7 @@ Users should be able to:
 ### Links
 
 - [Solution](https://github.com/al-burtsev/tip-calculator-app)
-- [Live site](https://tip-calculator-axgnllaa0-al-burtsevs-projects.vercel.app/)
+- [Live site](https://tip-calculator-app-beta-olive.vercel.app/)
 
 ### Built with
 
