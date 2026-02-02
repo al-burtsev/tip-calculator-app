@@ -23,11 +23,6 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
     onTipChange(val)
   }, [onTipChange])
 
-  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    e.currentTarget.select()
-    setIsFocused(true)
-  }
-
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
     setIsFocused(true)
@@ -68,7 +63,6 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           min='0'
           max='500'
           placeholder="Custom"
-          onFocus={handleInputFocus}
           onBlur={() => setIsFocused(false)}
           onClick={handleInputClick}
           onChange={handleInputChange}
