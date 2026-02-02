@@ -67,6 +67,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           id='custom-tip'
           ref={inputRef}
           type="number"
+          inputMode="decimal"
           min='0'
           max='500'
           placeholder="Custom"
@@ -75,7 +76,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           value={!isFocused && TIP_VALUES.includes(selectedTipNum) ? '' : selectedTip}
-          className='no-number-bar bg-neutral-50 text-neutral-900 text-right font-bold text-2xl rounded-sm px-2 md:pe-4 md:text-(length:--tip-select-fz) hocus:outline-primary hocus:outline-2' />
+          className='no-number-bar bg-neutral-50 text-neutral-900 text-right font-bold text-2xl rounded-sm px-2 md:pe-4 md:text-(length:--tip-select-fz) focus-visible:outline-primary focus-visible:outline-2 lg:hover:outline-primary lg:hover:outline-2' />
       </div>
     </div>
   )

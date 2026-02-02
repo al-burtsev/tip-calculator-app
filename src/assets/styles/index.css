@@ -52,4 +52,4 @@
   }
 }
 
-@variant hocus (&:hover, &:focus);
+@variant hocus (&:hover, &:focus-visible);

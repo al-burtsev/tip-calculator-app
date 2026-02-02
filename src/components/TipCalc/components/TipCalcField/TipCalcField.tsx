@@ -17,7 +17,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
   }
-  
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.currentTarget.blur()
@@ -44,6 +44,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
         <input
           id={id}
           type="number"
+          inputMode="decimal"
           min='0'
           placeholder='0'
           value={inputVal}
@@ -51,7 +52,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
           onClick={handleInputClick}
           onChange={onChange}
           onKeyDown={handleKeyDown}
-          className={`no-number-bar bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 ps-8 pe-4 w-full hocus:outline-2 selection:bg-primary ${error ? 'outline-attention outline-2 hocus:outline-attention' : 'hocus:outline-primary '}`} />
+          className={`no-number-bar bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 ps-8 pe-4 w-full focus-visible:outline-2 lg:hover:outline-2 selection:bg-primary ${error ? 'outline-attention outline-2 focus-fisible:outline-attention lg:hover:outline-attention' : 'focus-visible:outline-primary lg:hover:outline-primary'}`} />
       </div>
     </div>
   )
