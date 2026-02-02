@@ -28,6 +28,13 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
     setIsFocused(true)
   }
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.currentTarget.blur()
+      }
+      onKeyDown(e)
+    }
+
   useEffect(() => {
     if (!inputRef.current) return
 
@@ -66,7 +73,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           onBlur={() => setIsFocused(false)}
           onClick={handleInputClick}
           onChange={handleInputChange}
-          onKeyDown={onKeyDown}
+          onKeyDown={handleKeyDown}
           value={!isFocused && TIP_VALUES.includes(selectedTipNum) ? '' : selectedTip}
           className='no-number-bar bg-neutral-50 text-neutral-900 text-right font-bold text-2xl rounded-sm px-2 md:pe-4 md:text-(length:--tip-select-fz) hocus:outline-primary hocus:outline-2' />
       </div>

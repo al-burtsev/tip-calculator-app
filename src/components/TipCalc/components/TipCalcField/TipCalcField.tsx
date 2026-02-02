@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
 interface TipCalcFieldProps {
   id: string;
@@ -16,6 +16,13 @@ const TipCalcField = (props: TipCalcFieldProps) => {
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
+  }
+  
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.currentTarget.blur()
+    }
+    onKeyDown(e)
   }
 
   return (
@@ -43,7 +50,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
           aria-invalid={isError}
           onClick={handleInputClick}
           onChange={onChange}
-          onKeyDown={onKeyDown}
+          onKeyDown={handleKeyDown}
           className={`no-number-bar bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 ps-8 pe-4 w-full hocus:outline-2 selection:bg-primary ${error ? 'outline-attention outline-2 hocus:outline-attention' : 'hocus:outline-primary '}`} />
       </div>
     </div>
