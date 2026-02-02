@@ -68,7 +68,7 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
           onChange={handleInputChange}
           onKeyDown={onKeyDown}
           value={!isFocused && TIP_VALUES.includes(selectedTipNum) ? '' : selectedTip}
-          className='no-number-bar bg-neutral-200 text-neutral-900 text-right font-bold text-2xl rounded-sm px-2 md:pe-4 md:text-(length:--tip-select-fz) hocus:outline-primary hocus:outline-2' />
+          className='no-number-bar bg-neutral-50 text-neutral-900 text-right font-bold text-2xl rounded-sm px-2 md:pe-4 md:text-(length:--tip-select-fz) hocus:outline-primary hocus:outline-2' />
       </div>
     </div>
   )

@@ -71,7 +71,9 @@ const TipCalc = () => {
 
   return (
     <section>
-      <form className='container font-main bg-white py-8 rounded-t-3xl grid gap-8 md:grid-cols-2 md:rounded-3xl
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className='container font-main bg-white py-8 rounded-t-3xl grid gap-8 md:grid-cols-2 md:rounded-3xl
        selection:bg-primary selection:text-neutral-50'>
         <div className='grid gap-8 px-2 md:px-4 md:py-3 md:gap-10'>
           <TipCalcField
@@ -99,26 +101,26 @@ const TipCalc = () => {
           />
 
         </div>
-        <div className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl grid gap-7 md:px-10 md:py-9 md:gap-0'>
-          <div className='flex justify-between items-center md:items-start md:translate-y-4'>
+        <div className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl overflow-x-hidden grid gap-7 md:px-10 md:py-9 md:gap-0'>
+          <div className='flex justify-between items-center flex-wrap overflow-hidden md:items-start md:translate-y-4'>
             <div className='text-white font-bold'>
               Tip Amount
               <div className='text-neutral-400 text-xs'> / person</div>
             </div>
             <div
               data-testid="tip-amount"
-              className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
+              className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5 overflow-x-auto overflow-y-clip'>
               <IconDollar className="text-primary w-4 h-6 md:w-6 md:h-8" />
               {displayTip}</div>
           </div>
-          <div className='flex justify-between items-center md:items-start'>
+          <div className='flex justify-between items-center flex-wrap overflow-hidden md:items-start'>
             <div className='text-white font-bold'>
               Total
               <div className='text-neutral-400 text-xs'>/ person</div>
             </div>
             <div
               data-testid="total-amount"
-              className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
+              className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5 overflow-x-auto overflow-y-clip'>
               <IconDollar className="text-primary w-4 h-6 md:w-6 md:h-8" />
               {displayTotal}</div>
           </div>
@@ -126,6 +128,7 @@ const TipCalc = () => {
             isActive={hasData}
             onClick={handleReset}
           />
+          <button type="submit" className='hidden' aria-hidden="true"></button>
         </div>
       </form>
     </section>

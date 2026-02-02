@@ -44,7 +44,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
           onClick={handleInputClick}
           onChange={onChange}
           onKeyDown={onKeyDown}
-          className={`no-number-bar bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 pe-4 w-full hocus:outline-2 selection:bg-primary ${error ? 'outline-attention outline-2 hocus:outline-attention' : 'hocus:outline-primary '}`} />
+          className={`no-number-bar bg-neutral-50 text-neutral-900 text-2xl leading-none font-bold text-right rounded-sm py-2 ps-8 pe-4 w-full hocus:outline-2 selection:bg-primary ${error ? 'outline-attention outline-2 hocus:outline-attention' : 'hocus:outline-primary '}`} />
       </div>
     </div>
   )
