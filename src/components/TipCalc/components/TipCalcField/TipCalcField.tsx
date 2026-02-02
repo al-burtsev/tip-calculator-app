@@ -5,7 +5,7 @@ interface TipCalcFieldProps {
   label: string;
   icon: string;
   inputVal: string;
-  isError: boolean;
+  isError?: boolean;
   error?: string;
   onKeyDown: (event: React.KeyboardEvent) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

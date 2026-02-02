@@ -3,32 +3,6 @@ import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import App from '../../../App'
 
-// test('should reset all fields and total amount when reset button is clicked', async () => {
-//   const user = userEvent.setup() 
-//   render(<TipCalc />)
-
-//   const tipDisplay = screen.getByTestId('tip-amount')
-//   const totalDisplay = screen.getByTestId('total-amount')
-
-//   const billInput = screen.getByLabelText(/bill/i)
-//   await user.type(billInput, '100')
-
-//   const tipBtn = screen.getByRole('button', { name: /15%/i })
-//   await user.click(tipBtn)
-
-//   const inputPeople = screen.getByLabelText(/number of people/i)
-//   await user.type(inputPeople, '2')
-
-//   const resetBtn = screen.getByRole('button', { name: /reset/i })
-//   fireEvent.click(resetBtn)
-
-//   expect(tipDisplay).toHaveTextContent('0.00')
-//   expect(totalDisplay).toHaveTextContent('0.00')
-//   expect(billInput).toHaveValue(null)
-//   expect(tipBtn).toHaveAttribute('aria-pressed', 'false')
-//   expect(inputPeople).toHaveValue(null)
-// })
-
 describe('Tip Calculator Full Suite', () => {
   const setup = () => ({
     user: userEvent.setup(),
