@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 interface TipSelectorProps {
   selectedTip: string;
-  onKeyDown: (event: React.KeyboardEvent) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onTipChange: (value: number | string) => void;
 }
 

@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo, useRef, useEffect } from 'react'
+import { useCallback, useState, useMemo, useRef } from 'react'
 import TipCalcField from './components/TipCalcField/TipCalcField'
 import TipSelector from './components/TipSelector/TipSelector'
 import TipReset from './components/TipReset/TipReset'
