@@ -30,12 +30,18 @@ const TipSelector = ({ selectedTip, onTipChange, onKeyDown }: TipSelectorProps) 
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
+    setIsFocused(true)
   }
 
   useEffect(() => {
-    if (isFocused && inputRef.current) {
+    if (!inputRef.current) return
+
+    if (isFocused) {
       inputRef.current.select()
+    } else {
+      inputRef.current.blur()
     }
+
   }, [isFocused])
 
   return (
