@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useMemo, useRef, useEffect } from 'react'
 import TipCalcField from './components/TipCalcField/TipCalcField'
 import TipSelector from './components/TipSelector/TipSelector'
 import TipReset from './components/TipReset/TipReset'
@@ -9,6 +9,21 @@ const TipCalc = () => {
   const [bill, setBill] = useState<string>('')
   const [tipPercent, setTipPercent] = useState<string>('');
   const [people, setPeople] = useState<string>('')
+
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  const billNum = Number(bill)
+  const tipNum = Number(tipPercent)
+  const peopleNum = Number(people)
+
+  const tipAmount = useMemo(() => calcTips(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
+  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
+
+  const hasData = (billNum > 0 || peopleNum > 0 || tipNum > 0)
+  const isPeopleZero = people !== '' && peopleNum === 0
+
+  const displayTip = hasData ? tipAmount : '0.00'
+  const displayTotal = hasData ? totalPerPerson : '0.00'
 
   const handleBillChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -44,30 +59,32 @@ const TipCalc = () => {
 
   }, [])
 
-  const preventInvalidChars = useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (['-', '+', 'e', 'E'].includes(e.key)) {
       e.preventDefault();
+      return
     }
-  }, [])
+
+    if (e.key === 'Enter') {
+      const canScroll = billNum > 0 && tipNum > 0 && peopleNum > 0
+
+      if (canScroll) {
+        setTimeout(() => {
+          resultsRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+          });
+        }, 350)
+      }
+    }
+  }, [billNum, tipNum, peopleNum])
+
 
   const handleReset = useCallback(() => {
     setBill('')
     setTipPercent('')
     setPeople('')
   }, [])
-
-  const billNum = Number(bill)
-  const tipNum = Number(tipPercent)
-  const peopleNum = Number(people)
-
-  const tipAmount = useMemo(() => calcTips(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
-  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
-
-  const hasData = (billNum > 0 || peopleNum > 0 || tipNum > 0)
-  const isPeopleZero = people !== '' && Number(people) === 0
-
-  const displayTip = hasData ? tipAmount : '0.00'
-  const displayTotal = hasData ? totalPerPerson : '0.00'
 
   return (
     <section>
@@ -81,12 +98,12 @@ const TipCalc = () => {
             label="Bill"
             icon="/icon-dollar.svg"
             inputVal={bill}
-            onKeyDown={preventInvalidChars}
+            onKeyDown={handleKeyDown}
             onChange={handleBillChange}
           />
           <TipSelector
             selectedTip={tipPercent}
-            onKeyDown={preventInvalidChars}
+            onKeyDown={handleKeyDown}
             onTipChange={handleTipChange}
           />
           <TipCalcField
@@ -96,12 +113,14 @@ const TipCalc = () => {
             inputVal={people}
             isError={isPeopleZero}
             error={isPeopleZero ? "Can't be zero" : ""}
-            onKeyDown={preventInvalidChars}
+            onKeyDown={handleKeyDown}
             onChange={handlePeopleChange}
           />
 
         </div>
-        <div className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl overflow-x-hidden grid gap-7 md:px-10 md:py-9 md:gap-0'>
+        <div
+          ref={resultsRef}
+          className='bg-neutral-900 px-6 pt-10 pb-6.5 rounded-xl overflow-x-hidden grid gap-7 md:px-10 md:py-9 md:gap-0'>
           <div className='flex justify-between items-center flex-wrap overflow-hidden md:items-start md:translate-y-4'>
             <div className='text-white font-bold'>
               Tip Amount

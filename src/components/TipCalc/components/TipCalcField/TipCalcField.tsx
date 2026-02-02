@@ -7,7 +7,7 @@ interface TipCalcFieldProps {
   inputVal: string;
   isError?: boolean;
   error?: string;
-  onKeyDown: (event: React.KeyboardEvent) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
