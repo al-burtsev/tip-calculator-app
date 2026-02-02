@@ -7,6 +7,7 @@ function App() {
     <>
       <Header />
       <main>
+        <h1 className='sr-only'>Splitter — tip calculator</h1>
         <TipCalc />
       </main>
     </>

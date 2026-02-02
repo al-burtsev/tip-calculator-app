@@ -3,7 +3,9 @@
 
 :root {
   --bg-color: hsl(185, 41%, 84%);
-  --tip-select-fz: clamp(20px, 4vw, 24px) line-height: 1.5;
+  --tip-select-fz: clamp(18px, 2vw, 24px);
+
+  line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;

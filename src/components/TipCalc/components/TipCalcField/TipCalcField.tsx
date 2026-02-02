@@ -5,13 +5,14 @@ interface TipCalcFieldProps {
   label: string;
   icon: string;
   inputVal: string;
+  isError: boolean;
   error?: string;
   onKeyDown: (event: React.KeyboardEvent) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TipCalcField = (props: TipCalcFieldProps) => {
-  const { id, label, inputVal, error, icon, onChange, onKeyDown } = props
+  const { id, label, inputVal, isError, error, icon, onChange, onKeyDown } = props
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select()
@@ -39,6 +40,7 @@ const TipCalcField = (props: TipCalcFieldProps) => {
           min='0'
           placeholder='0'
           value={inputVal}
+          aria-invalid={isError}
           onClick={handleInputClick}
           onChange={onChange}
           onKeyDown={onKeyDown}

@@ -60,10 +60,10 @@ const TipCalc = () => {
   const tipNum = Number(tipPercent)
   const peopleNum = Number(people)
 
-  const tipAmount = useMemo(() => calcTips(billNum, tipNum, peopleNum), [billNum, tipPercent, peopleNum])
-  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipNum, peopleNum), [billNum, tipPercent, peopleNum])
+  const tipAmount = useMemo(() => calcTips(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
+  const totalPerPerson = useMemo(() => calcPersonTotalSum(billNum, tipNum, peopleNum), [billNum, tipNum, peopleNum])
 
-  const hasData = (billNum > 0 && peopleNum > 0)
+  const hasData = (billNum > 0 || peopleNum > 0 || tipNum > 0)
   const isPeopleZero = people !== '' && Number(people) === 0
 
   const displayTip = hasData ? tipAmount : '0.00'
@@ -92,6 +92,7 @@ const TipCalc = () => {
             label="Number of people"
             icon="/icon-person.svg"
             inputVal={people}
+            isError={isPeopleZero}
             error={isPeopleZero ? "Can't be zero" : ""}
             onKeyDown={preventInvalidChars}
             onChange={handlePeopleChange}
@@ -104,7 +105,9 @@ const TipCalc = () => {
               Tip Amount
               <div className='text-neutral-400 text-xs'> / person</div>
             </div>
-            <div className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
+            <div
+              data-testid="tip-amount"
+              className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
               <IconDollar className="text-primary w-4 h-6 md:w-6 md:h-8" />
               {displayTip}</div>
           </div>
@@ -113,7 +116,9 @@ const TipCalc = () => {
               Total
               <div className='text-neutral-400 text-xs'>/ person</div>
             </div>
-            <div className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
+            <div
+              data-testid="total-amount"
+              className='leading-none text-3xl md:text-5xl text-primary font-bold flex items-center gap-x-0.5'>
               <IconDollar className="text-primary w-4 h-6 md:w-6 md:h-8" />
               {displayTotal}</div>
           </div>

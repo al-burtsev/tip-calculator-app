@@ -14,6 +14,7 @@ const TipReset = ({ isActive, onClick }: ResetProps) => {
     <button
       type='button'
       onClick={onClick}
+      aria-disabled={!isActive}
       className={`${baseStyles} ${activeStyles}`}
     >
       reset

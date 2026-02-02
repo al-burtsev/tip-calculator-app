@@ -14,6 +14,7 @@ const TipButton = ({ value, isActive, onClick }: TipButtonProps) => {
   return (
     <button
       type='button'
+      aria-pressed={isActive} 
       className={`${baseStyle} ${activeStyle}`} onClick={() => onClick(value)}>
       {value}%
     </button>
